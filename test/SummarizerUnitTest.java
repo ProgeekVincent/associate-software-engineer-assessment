@@ -1,3 +1,8 @@
+import org.junit.Test;
+import static org.junit.Assert.*;
+import java.util.*;
+
+
 /**
  * @author Siyabonga
  * 
@@ -5,12 +10,8 @@
  * 
  * */
 
-import org.junit.Test;
-import static org.junit.Assert.*;
 
-import java.util.*;
-
-public class SummarizerTest {
+public class SummarizerUnitTest {
 	private final Summarizer summarizer = new Summarizer();
 
 	// Test collect with valid input (Best Case)

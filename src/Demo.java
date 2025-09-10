@@ -1,3 +1,6 @@
+import java.util.Collection;
+
+
 /**
  * @author Siyabonga
  * 
@@ -5,7 +8,6 @@
  * 
  * */
 
-import java.util.Collection;
 
 public class Demo
 {

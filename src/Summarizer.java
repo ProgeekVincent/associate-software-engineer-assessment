@@ -1,9 +1,3 @@
-/**
- * @author Siyabonga
- * 
- * Summarizer class implements the NumberRangeSummarizer Interface
- * 
- * */
 
 import numberrangesummarizer.NumberRangeSummarizer;
 import java.util.Collection;
@@ -13,6 +7,14 @@ import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
+
+
+/**
+ * @author Siyabonga
+ * 
+ * Summarizer class implements the NumberRangeSummarizer Interface
+ * 
+ * */
 
 
 public class Summarizer implements NumberRangeSummarizer

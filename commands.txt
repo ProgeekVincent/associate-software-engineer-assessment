@@ -1,8 +1,8 @@
 
 // compile the test classes
 
-javac -cp .;lib\junit-4.13.2.jar;lib\hamcrest-core-1.3.jar src\numberrangesummarizer\NumberRangeSummarizer.java src\Summarizer.java test\SummarizerTest.java
+javac -cp .;lib\junit-4.13.2.jar;lib\hamcrest-core-1.3.jar src\numberrangesummarizer\NumberRangeSummarizer.java src\Summarizer.java test\SummarizerUnitTest.java
 
 // execute or run the test classes
 
-java -cp .;src;test;lib\junit-4.13.2.jar;lib\hamcrest-core-1.3.jar org.junit.runner.JUnitCore SummarizerTest
+java -cp .;src;test;lib\junit-4.13.2.jar;lib\hamcrest-core-1.3.jar org.junit.runner.JUnitCore SummarizerUnitTest
