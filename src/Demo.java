@@ -1,13 +1,13 @@
 /**
  * @author Siyabonga
  * 
- * Program class runs the program
+ * Demo class runs the program
  * 
  * */
 
 import java.util.Collection;
 
-public class Program
+public class Demo
 {
 	public static void main(String[] args){
 
@@ -31,7 +31,7 @@ public class Program
 			String summarizedSample = summarizer.summarizeCollection(sampleData);
 
 			System.out.println(summarizedSample);
-			
+
 		}catch (IllegalArgumentException e){
 			System.out.println(e.getMessage());
 		}

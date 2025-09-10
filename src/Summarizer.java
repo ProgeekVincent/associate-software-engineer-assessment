@@ -26,7 +26,6 @@ public class Summarizer implements NumberRangeSummarizer
 			return Collections.emptyList();
 		}
 
-		// split the input into tokens
 		List<String> tokens = Arrays.stream(input.split("[,\\s]+"))
 				.map(String::trim)
 				.filter(s -> !s.isEmpty())
@@ -56,9 +55,9 @@ public class Summarizer implements NumberRangeSummarizer
 		// remove the duplicates
 		List<Integer> numbers = new ArrayList<>(new HashSet<>(input));
 
-		Collections.sort(numbers); // sort the numbers
+		Collections.sort(numbers);
 
-		return String.join(", ", summarizeRanges(numbers)); // get the summary
+		return String.join(", ", summarizeRanges(numbers));
 	}
 
 	// helper method to find and collect and range
@@ -78,14 +77,14 @@ public class Summarizer implements NumberRangeSummarizer
 				j++;
 			}
 
-			int end = numbers.get(j); // last number of the range
+			int end = numbers.get(j); 
 
 			if (start == end) 
 				result.add(String.valueOf(start));
 			else 
 				result.add(String.valueOf(start + "-" + end));
 
-			i = j + 1; // reset i for the next collection
+			i = j + 1;
 		}
 
 		return result;
