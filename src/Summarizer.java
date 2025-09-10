@@ -6,12 +6,11 @@
  * */
 
 import numberrangesummarizer.NumberRangeSummarizer;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.HashSet;
 import java.util.ArrayList;
-
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -19,86 +18,77 @@ import java.util.stream.Collectors;
 public class Summarizer implements NumberRangeSummarizer
 {
 
-	// collect the input implementation
+	// Collect the input implementation
 	@Override
 	public Collection<Integer> collect(String input){
 
-		if (input == null || input.isEmpty()){
-			return null;
+		if (input == null || input.trim().isEmpty()){
+			return Collections.emptyList();
 		}
 
-		// split the input into an array
-		List<String> inputArray = Arrays.stream(input.split(",")).map(String::trim).filter(s -> !s.isEmpty()).collect(Collectors.toList());
+		// split the input into tokens
+		List<String> tokens = Arrays.stream(input.split("[,\\s]+"))
+				.map(String::trim)
+				.filter(s -> !s.isEmpty())
+				.collect(Collectors.toList());
 
-		// new input list
-		List<Integer> newInput = new ArrayList<>();
+		List<Integer> numbers = new ArrayList<>();
 		
-		for (String element : inputArray)
+		for (String token : tokens)
 		{
 			try{
-				// add to new input list
-				newInput.add(Integer.parseInt(element));
+				numbers.add(Integer.parseInt(token));
 			}catch (NumberFormatException e){
-				// if invalid number terminate the loop.
-				String errorMessage = "'" + element + "'" + " is found to be an invalid number.";
-				System.out.println(errorMessage);
-				return null;
+				throw new IllegalArgumentException("'" + token +"' is not a valid number.");
 			}
 		}
 
-		return newInput;
+		return numbers;
 	}
 
 	// get the summarizer string implementation
 	@Override
 	public String summarizeCollection(Collection<Integer> input){
-		// check if input is null or empty
+		
 		if (input == null || input.isEmpty())
 			return "Oops! The dataset is not found.\nPlease input a valid dataset.";
 
-		// type cast input to an array list
-		List<Integer> inputArray = new ArrayList<>(input);
+		// remove the duplicates
+		List<Integer> numbers = new ArrayList<>(new HashSet<>(input));
 
-		// sort the array
-		Collections.sort(inputArray);
+		Collections.sort(numbers); // sort the numbers
 
-		// return the outcome
-		return String.join(", ", findAndCollectRange(inputArray));
+		return String.join(", ", summarizeRanges(numbers)); // get the summary
 	}
 
 	// helper method to find and collect and range
-	private List<String> findAndCollectRange(List<Integer> input){
+	private List<String> summarizeRanges(List<Integer> numbers){
 
-		// array list for summarized collections
-		List<String> summarizedInput = new ArrayList<>();
+		List<String> result = new ArrayList<>();
 
-		// index to iterate the loop
 		int i = 0;
 
-		while (i < input.size()){
-			int j = i; // initialize j to find the last element of the range
+		while (i < numbers.size()){
+			int j = i;
 
-			// first the element of the range
-			Integer startOfRange = input.get(i);
+			int start = numbers.get(i); // first number of the range
 
-			while ((j + 1) < input.size() && input.get(j + 1) == (input.get(j) + 1)){ j++; /* increment j if a range is found */}
+			// iterate if there are consecutive numbers
+			while ((j + 1) < numbers.size() && numbers.get(j + 1) == numbers.get(j) + 1){
+				j++;
+			}
 
-			// last element of the range
-			Integer endOfRange = input.get(j);
+			int end = numbers.get(j); // last number of the range
 
-			if (startOfRange == endOfRange)
-				// last and first element are the same
-				summarizedInput.add(String.valueOf(startOfRange));
-			else
-				// last and first element are not the same
-				summarizedInput.add(String.valueOf(startOfRange+"-"+endOfRange));
+			if (start == end) 
+				result.add(String.valueOf(start));
+			else 
+				result.add(String.valueOf(start + "-" + end));
 
-			// initialize i with next index of the last range value
-			i = j + 1;
+			i = j + 1; // reset i for the next collection
 		}
 
-		// return the summarized input
-		return summarizedInput;
+		return result;
 	}
 
 }
